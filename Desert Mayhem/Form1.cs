@@ -17,7 +17,77 @@ namespace Desert_Mayhem
     public partial class FrmGame : Form
     {
         Graphics g; //declare a graphics object called g
-        AllyCar AllyCar = new AllyCar(); //create the object, BluePlane
+        AllyCar AllyCar = new AllyCar(); //create the object, AllyCar
+        bool turnLeft, turnRight, up, down;
+        int Espeed;
+        int AllyCarPosX, AllyCarPosY;
+        int startx, starty;
+
+        private void tmrAllyCar_Tick(object sender, EventArgs e)
+        {
+            if (turnRight)
+            {
+                AllyCar.rotationAngle += 6;
+            }
+            if (turnLeft)
+            {
+                AllyCar.rotationAngle -= 6;
+            }
+            if (up) // if left arrow key pressed
+            {
+                if (AllyCar.speed != 10)
+                {
+                    AllyCar.speed += 1;
+                }
+            }
+            if (down) // if left arrow key pressed
+            {
+                if (AllyCar.speed != 3)
+                {
+                    AllyCar.speed -= 1;
+                }
+            }
+            if (up != true) // if left arrow key pressed
+            {
+                if (AllyCar.speed > 6)
+                {
+                    AllyCar.speed -= 1;
+                }
+            }
+            if (down != true) // if left arrow key pressed
+            {
+                if (AllyCar.speed < 6)
+                {
+                    AllyCar.speed += 1;
+                }
+            }
+            //update the rotation angle and movment of blueplane
+            AllyCar.Rotatecar(AllyCar.rotationAngle, AllyCar.speed);
+            AllyCar.MoveAllyCar();
+            PnlGame.Invalidate();
+        }
+
+        private void PnlGame_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+    
+        }
+
+        private void FrmGame_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Left) { turnLeft = true; }
+            if (e.KeyData == Keys.Right) { turnRight = true; }
+            if (e.KeyData == Keys.Up) { up = true; }
+            if (e.KeyData == Keys.Down) { down = true; }
+        }
+
+        private void FrmGame_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Left) { turnLeft = false; }
+            if (e.KeyData == Keys.Right) { turnRight = false; }
+            if (e.KeyData == Keys.Up) { up = false; }
+            if (e.KeyData == Keys.Down) { down = false; }
+        }
+
         public FrmGame()
         {
             InitializeComponent();

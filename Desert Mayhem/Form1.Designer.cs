@@ -29,7 +29,10 @@ namespace Desert_Mayhem
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.PnlGame = new System.Windows.Forms.Panel();
+            this.tmrAllyCar = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // PnlGame
@@ -40,6 +43,13 @@ namespace Desert_Mayhem
             this.PnlGame.Size = new System.Drawing.Size(571, 409);
             this.PnlGame.TabIndex = 0;
             this.PnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGame_Paint);
+            this.PnlGame.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PnlGame_PreviewKeyDown);
+            // 
+            // tmrAllyCar
+            // 
+            this.tmrAllyCar.Enabled = true;
+            this.tmrAllyCar.Interval = 10;
+            this.tmrAllyCar.Tick += new System.EventHandler(this.tmrAllyCar_Tick);
             // 
             // FrmGame
             // 
@@ -47,8 +57,11 @@ namespace Desert_Mayhem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.PnlGame);
+            this.KeyPreview = true;
             this.Name = "FrmGame";
             this.Text = "Desert Mayhem";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyUp);
             this.ResumeLayout(false);
 
         }
@@ -56,6 +69,8 @@ namespace Desert_Mayhem
         #endregion
 
         private System.Windows.Forms.Panel PnlGame;
+        private System.Windows.Forms.Timer tmrAllyCar;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
