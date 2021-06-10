@@ -38,9 +38,9 @@ namespace Desert_Mayhem
             // PnlGame
             // 
             this.PnlGame.BackColor = System.Drawing.Color.Tan;
-            this.PnlGame.Location = new System.Drawing.Point(12, 29);
+            this.PnlGame.Location = new System.Drawing.Point(12, 49);
             this.PnlGame.Name = "PnlGame";
-            this.PnlGame.Size = new System.Drawing.Size(571, 409);
+            this.PnlGame.Size = new System.Drawing.Size(1000, 500);
             this.PnlGame.TabIndex = 0;
             this.PnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGame_Paint);
             this.PnlGame.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PnlGame_PreviewKeyDown);
@@ -55,7 +55,7 @@ namespace Desert_Mayhem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1184, 561);
             this.Controls.Add(this.PnlGame);
             this.KeyPreview = true;
             this.Name = "FrmGame";

@@ -22,47 +22,49 @@ namespace Desert_Mayhem
         int Espeed;
         int AllyCarPosX, AllyCarPosY;
         int startx, starty;
+        decimal m1 = 0.09M; // Better
+        decimal m2 = 0.05M; // Better
+
 
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
             if (turnRight)
             {
-                AllyCar.rotationAngle += 6;
+                AllyCar.rotationAngle += 4;
             }
             if (turnLeft)
             {
-                AllyCar.rotationAngle -= 6;
+                AllyCar.rotationAngle -= 4;
             }
             if (up) // if left arrow key pressed
             {
-                if (AllyCar.speed != 10)
+
+                if (AllyCar.speed < 10)
                 {
-                    AllyCar.speed += 1;
+                    AllyCar.speed += m1;
                 }
-            }
-            if (down) // if left arrow key pressed
-            {
-                if (AllyCar.speed != 3)
-                {
-                    AllyCar.speed -= 1;
-                }
+
             }
             if (up != true) // if left arrow key pressed
             {
-                if (AllyCar.speed > 6)
+                if (AllyCar.speed > 0)
                 {
-                    AllyCar.speed -= 1;
+                    AllyCar.speed -= m2;
                 }
+                
+               
             }
-            if (down != true) // if left arrow key pressed
+            if (down) // if left arrow key pressed
             {
-                if (AllyCar.speed < 6)
+
+                if (AllyCar.speed > -3)
                 {
-                    AllyCar.speed += 1;
+                    AllyCar.speed -= m1;
                 }
             }
+           
             //update the rotation angle and movment of blueplane
-            AllyCar.Rotatecar(AllyCar.rotationAngle, AllyCar.speed);
+            AllyCar.Rotatecar(AllyCar.rotationAngle,  (int)AllyCar.speed);
             AllyCar.MoveAllyCar();
             PnlGame.Invalidate();
         }

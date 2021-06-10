@@ -14,9 +14,9 @@ namespace Desert_Mayhem
         public Image AllyCarImage;//variable for the cars image
         public Rectangle AllyCarRec;//variable for a rectangle to place our image in
          //Create a constructor (initialises the values of the fields)
-        public double xSpeed, ySpeed;
+        public decimal xSpeed, ySpeed;
         public int rotationAngle;
-        public int speed;
+        public decimal speed;
         public Matrix matrix;
         Point centre;
 
@@ -25,9 +25,9 @@ namespace Desert_Mayhem
             x = 100;
             y = 100;
             width = 30;
-            height = 30;
-            speed = 10;
-            rotationAngle = 180;
+            height = 50;
+            speed = 0;
+            rotationAngle = 360;
             //AllyCar contains the Car1.png image
             AllyCarImage = Properties.Resources.car1;
             AllyCarRec = new Rectangle(x, y, width, height);
@@ -37,7 +37,7 @@ namespace Desert_Mayhem
         public void DrawAllyCar(Graphics g)
         {
             //find the centre point of AllyCarRec
-            centre = new Point(AllyCarRec.X + width / 2, AllyCarRec.Y + width / 2);
+            centre = new Point(AllyCarRec.X + width / 2, AllyCarRec.Y + height / 4);
             //instantiate a Matrix object called matrix
             matrix = new Matrix();
             //rotate the matrix (AlllyCarRec) about its centre
@@ -66,8 +66,8 @@ namespace Desert_Mayhem
         public void Rotatecar(int AllyCarRotate, int Speed)
         {
             //find the rotation angle of the blueplane
-            xSpeed = Speed * (Math.Cos((AllyCarRotate - 90) * Math.PI / 180));
-            ySpeed = Speed * (Math.Sin((AllyCarRotate + 90) * Math.PI / 180));
+            xSpeed = (decimal)(Speed * (Math.Cos((AllyCarRotate - 90) * Math.PI / 180)));
+            ySpeed = (decimal)(Speed * (Math.Sin((AllyCarRotate + 90) * Math.PI / 180)));
         }
     }
 }
