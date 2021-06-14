@@ -33,6 +33,8 @@ namespace Desert_Mayhem
             this.PnlGame = new System.Windows.Forms.Panel();
             this.tmrAllyCar = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.DrawEnemy1tmr = new System.Windows.Forms.Timer(this.components);
+            this.tmrEnemy = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // PnlGame
@@ -50,6 +52,18 @@ namespace Desert_Mayhem
             this.tmrAllyCar.Enabled = true;
             this.tmrAllyCar.Interval = 10;
             this.tmrAllyCar.Tick += new System.EventHandler(this.tmrAllyCar_Tick);
+            // 
+            // DrawEnemy1tmr
+            // 
+            this.DrawEnemy1tmr.Enabled = true;
+            this.DrawEnemy1tmr.Interval = 4000;
+            this.DrawEnemy1tmr.Tick += new System.EventHandler(this.DrawEnemy1tmr_Tick);
+            // 
+            // tmrEnemy
+            // 
+            this.tmrEnemy.Enabled = true;
+            this.tmrEnemy.Interval = 3;
+            this.tmrEnemy.Tick += new System.EventHandler(this.tmrEnemy_Tick);
             // 
             // FrmGame
             // 
@@ -71,6 +85,8 @@ namespace Desert_Mayhem
         private System.Windows.Forms.Panel PnlGame;
         private System.Windows.Forms.Timer tmrAllyCar;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer DrawEnemy1tmr;
+        private System.Windows.Forms.Timer tmrEnemy;
     }
 }
 

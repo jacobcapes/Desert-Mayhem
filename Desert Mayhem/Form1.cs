@@ -18,6 +18,8 @@ namespace Desert_Mayhem
     {
         Graphics g; //declare a graphics object called g
         AllyCar AllyCar = new AllyCar(); //create the object, AllyCar
+        List<Enemy1> Enemy1 = new List<Enemy1>(); //create the object, BluePlane
+
         bool turnLeft, turnRight, up, down;
         int Espeed;
         int AllyCarPosX, AllyCarPosY;
@@ -62,11 +64,40 @@ namespace Desert_Mayhem
                     AllyCar.speed -= m1;
                 }
             }
-           
+            //Parameters for the sides and top of panel
+            if (AllyCar.x < 0)
+            {
+                AllyCar.x = 0;
+            }
+
+            if (AllyCar.x > 965)
+            {
+                AllyCar.x = 965;
+            }
+            if (AllyCar.y < 0)
+            {
+                AllyCar.y = 0;
+            }
+            if (AllyCar.y > 465)
+            {
+                AllyCar.y = 465;
+            }
             //update the rotation angle and movment of blueplane
             AllyCar.Rotatecar(AllyCar.rotationAngle,  (int)AllyCar.speed);
             AllyCar.MoveAllyCar();
             PnlGame.Invalidate();
+        }
+
+        private void DrawEnemy1tmr_Tick(object sender, EventArgs e)
+        {
+            //draw new enemy with new speed
+            Espeed = 4;
+           Enemy1.Add(new Enemy1());
+        }
+
+        private void tmrEnemy_Tick(object sender, EventArgs e)
+        {
+
         }
 
         private void PnlGame_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -93,12 +124,19 @@ namespace Desert_Mayhem
         public FrmGame()
         {
             InitializeComponent();
+            //stops the panel and everything on it from buffering constantly
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, PnlGame, new object[] { true });
         }
 
         private void PnlGame_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
             AllyCar.DrawAllyCar(g);
+           
+            foreach (Enemy1 Enemy in Enemy1)
+            {
+                Enemy.DrawEnemy1(g);
+            }
         }
     }
 }
