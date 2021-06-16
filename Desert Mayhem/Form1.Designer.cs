@@ -56,7 +56,7 @@ namespace Desert_Mayhem
             // DrawEnemy1tmr
             // 
             this.DrawEnemy1tmr.Enabled = true;
-            this.DrawEnemy1tmr.Interval = 4000;
+            this.DrawEnemy1tmr.Interval = 10000;
             this.DrawEnemy1tmr.Tick += new System.EventHandler(this.DrawEnemy1tmr_Tick);
             // 
             // tmrEnemy

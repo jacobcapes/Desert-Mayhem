@@ -19,10 +19,10 @@ namespace Desert_Mayhem
         Graphics g; //declare a graphics object called g
         AllyCar AllyCar = new AllyCar(); //create the object, AllyCar
         List<Enemy1> Enemy1 = new List<Enemy1>(); //create the object, BluePlane
-
-        bool turnLeft, turnRight, up, down;
+        List<Missile> missiles = new List<Missile>();
+        bool turnLeft, turnRight, up, down, shoot;
         int Espeed;
-        int AllyCarPosX, AllyCarPosY;
+        int AllyCarPosX, AllyCarPosY, Enemy1PosX, Enemy1PosY;
         int startx, starty;
         decimal m1 = 0.09M; // Better
         decimal m2 = 0.05M; // Better
@@ -82,6 +82,14 @@ namespace Desert_Mayhem
             {
                 AllyCar.y = 465;
             }
+            if (shoot)
+            {
+                //if you have missiles available shoot.
+                missiles.Add(new Missile(AllyCar.AllyCarRec, AllyCar.rotationAngle));
+             
+                shoot = false;
+
+            }
             //update the rotation angle and movment of blueplane
             AllyCar.Rotatecar(AllyCar.rotationAngle,  (int)AllyCar.speed);
             AllyCar.MoveAllyCar();
@@ -90,14 +98,29 @@ namespace Desert_Mayhem
 
         private void DrawEnemy1tmr_Tick(object sender, EventArgs e)
         {
+            Enemy1.Add(new Enemy1());
             //draw new enemy with new speed
             Espeed = 4;
-           Enemy1.Add(new Enemy1());
+          // Enemy1.Add(new Enemy1());
         }
 
         private void tmrEnemy_Tick(object sender, EventArgs e)
         {
-
+            //update enemy movement
+            foreach (Enemy1 Enemy1 in Enemy1)
+            {
+                Enemy1.MoveEnemy1();
+                Enemy1.RotateEnemy1(Espeed);
+            }
+            AllyCarPosX = AllyCar.AllyCarRec.Location.X;
+            AllyCarPosY = AllyCar.AllyCarRec.Location.Y;
+            foreach (Enemy1 Enemy1 in Enemy1)
+            {
+                //cacluate the roatation angle
+                Enemy1PosX = Enemy1.Enemy1Rec.Location.X;
+                Enemy1PosY = Enemy1.Enemy1Rec.Location.Y;
+                Enemy1.rotationAngle = (int)Enemy1.CalculateAngle(Enemy1PosX, Enemy1PosY, AllyCarPosX, AllyCarPosY);
+            }
         }
 
         private void PnlGame_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -111,6 +134,10 @@ namespace Desert_Mayhem
             if (e.KeyData == Keys.Right) { turnRight = true; }
             if (e.KeyData == Keys.Up) { up = true; }
             if (e.KeyData == Keys.Down) { down = true; }
+            if (e.KeyData == Keys.Space)
+            {
+                shoot = true;
+            }
         }
 
         private void FrmGame_KeyUp(object sender, KeyEventArgs e)
@@ -119,6 +146,8 @@ namespace Desert_Mayhem
             if (e.KeyData == Keys.Right) { turnRight = false; }
             if (e.KeyData == Keys.Up) { up = false; }
             if (e.KeyData == Keys.Down) { down = false; }
+            if (e.KeyData == Keys.Space) { shoot = false; }
+        
         }
 
         public FrmGame()
@@ -132,10 +161,16 @@ namespace Desert_Mayhem
         {
             g = e.Graphics;
             AllyCar.DrawAllyCar(g);
-           
+
+
             foreach (Enemy1 Enemy in Enemy1)
+           {
+               Enemy.DrawEnemy1(g);
+          }
+            foreach (Missile m in missiles)
             {
-                Enemy.DrawEnemy1(g);
+                m.drawMissile(g);
+                m.moveMissile();
             }
         }
     }
