@@ -25,8 +25,9 @@ namespace Desert_Mayhem
         //Create a constructor (initialises the values of the fields)
         public Enemy1()
         {
-            x = 50;
-            y = rand.Next(0, 300);
+            x = rand.Next(0, 0);
+          
+            y = rand.Next(0, 500);
             width = 30;
             height = 30;
             rotationAngle = 0;
@@ -64,7 +65,7 @@ namespace Desert_Mayhem
             //move the enemy toward the blue plane
             x += (int)xSpeed;
             y -= (int)ySpeed;
-            Enemy1Rec.Location = new Point(x, y);//missiles new location
+            Enemy1Rec.Location = new Point(x, y);//enemys new location
 
 
         }

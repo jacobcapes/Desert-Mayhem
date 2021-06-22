@@ -23,10 +23,77 @@ namespace Desert_Mayhem
         bool turnLeft, turnRight, up, down, shoot;
         int Espeed;
         int AllyCarPosX, AllyCarPosY, Enemy1PosX, Enemy1PosY;
-        int startx, starty;
+      
         decimal m1 = 0.09M; // Better
         decimal m2 = 0.05M; // Better
+        int Score = 0;
+        Random rand = new Random();
+        bool death;
+        Rectangle FuelRec = new Rectangle(0, 0, 20, 20);
+        Image FuelImage = Properties.Resources.fueltank;
 
+        int startx, starty;
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Fueltmr_Tick(object sender, EventArgs e)
+        {
+
+            //Parameters for the stamina bar (so that the bar does not exceed the max or min values
+            if (FuelTank.Value > FuelTank.Maximum - 1)
+            {
+                FuelTank.Value = FuelTank.Maximum;
+            }
+
+            if (FuelTank.Value < FuelTank.Minimum + 1)
+            {
+                FuelTank.Value = FuelTank.Minimum;
+            }
+
+            //Lowering stamina bar
+            if (up)
+            {
+                if (FuelTank.Value != FuelTank.Minimum + 1 && FuelTank.Value != FuelTank.Minimum - 1)
+                {
+                    FuelTank.Value -= 1;
+                }
+
+            }
+            //increasing stamina bar
+
+          
+
+            //Base stamina regen
+
+            if (FuelTank.Value < FuelTank.Minimum + 3)
+            {
+                up = false;
+            }
+
+
+
+        }
+
+        private void tmrFuel_Tick(object sender, EventArgs e)
+        {
+            //change ammo location to random and stop the timer
+            FuelRec.X = rand.Next(50, 950);
+           FuelRec.Y = rand.Next(50, 450);
+
+            tmrFuel.Enabled = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmGame_Load(object sender, EventArgs e)
+        {
+
+        }
 
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
@@ -53,8 +120,8 @@ namespace Desert_Mayhem
                 {
                     AllyCar.speed -= m2;
                 }
-                
-               
+
+
             }
             if (down) // if left arrow key pressed
             {
@@ -86,14 +153,46 @@ namespace Desert_Mayhem
             {
                 //if you have missiles available shoot.
                 missiles.Add(new Missile(AllyCar.AllyCarRec, AllyCar.rotationAngle));
-             
+
                 shoot = false;
+                    
+            }
+            foreach (Enemy1 Enemy in Enemy1)
+            {
+                if (AllyCar.AllyCarRec.IntersectsWith(Enemy.Enemy1Rec))
+                {
+                    
+                    death = true;
+                    Enemy1.Remove(Enemy);
+                    break;
+                   
+
+                }
+            }
+            if (death == true)
+            {
+
+                GameOver.Visible = true;
+                //stop all timers and show death
+                tmrEnemy.Enabled = false;
+                tmrFuel.Enabled = false;
+                Fueltmr.Enabled = false;
+                tmrAllyCar.Enabled = false;
+                DrawEnemy1tmr.Enabled = false;
+
 
             }
             //update the rotation angle and movment of blueplane
-            AllyCar.Rotatecar(AllyCar.rotationAngle,  (int)AllyCar.speed);
+            AllyCar.Rotatecar(AllyCar.rotationAngle, (int)AllyCar.speed);
+            lblSpeed.Text = AllyCar.speed.ToString();
             AllyCar.MoveAllyCar();
             PnlGame.Invalidate();
+            if (AllyCar.AllyCarRec.IntersectsWith(FuelRec))
+            {
+                //give more ammo when touching ammo box
+                tmrFuel.Enabled = true;
+                FuelTank.Value = 100;
+            }
         }
 
         private void DrawEnemy1tmr_Tick(object sender, EventArgs e)
@@ -101,7 +200,7 @@ namespace Desert_Mayhem
             Enemy1.Add(new Enemy1());
             //draw new enemy with new speed
             Espeed = 4;
-          // Enemy1.Add(new Enemy1());
+            // Enemy1.Add(new Enemy1());
         }
 
         private void tmrEnemy_Tick(object sender, EventArgs e)
@@ -121,11 +220,33 @@ namespace Desert_Mayhem
                 Enemy1PosY = Enemy1.Enemy1Rec.Location.Y;
                 Enemy1.rotationAngle = (int)Enemy1.CalculateAngle(Enemy1PosX, Enemy1PosY, AllyCarPosX, AllyCarPosY);
             }
+
+            foreach (Enemy1 Enemy in Enemy1)
+            {
+
+                foreach (Missile m in missiles)
+                {
+                    if (Enemy.Enemy1Rec.IntersectsWith(m.missileRec))
+                    {
+                        Score += 1;
+                        //if a missile hits a enemy
+                        missiles.Remove(m);// remove missile
+                        Enemy1.Remove(Enemy);
+
+                        break;
+                    }
+
+
+                }
+                break;
+
+            }
+            lblScore.Text = Score.ToString();
         }
 
         private void PnlGame_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-    
+
         }
 
         private void FrmGame_KeyDown(object sender, KeyEventArgs e)
@@ -147,26 +268,28 @@ namespace Desert_Mayhem
             if (e.KeyData == Keys.Up) { up = false; }
             if (e.KeyData == Keys.Down) { down = false; }
             if (e.KeyData == Keys.Space) { shoot = false; }
-        
+
         }
 
         public FrmGame()
         {
             InitializeComponent();
             //stops the panel and everything on it from buffering constantly
+            FuelTank.Value = 100;
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, PnlGame, new object[] { true });
         }
 
         private void PnlGame_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
+            g.DrawImage(FuelImage, FuelRec);
             AllyCar.DrawAllyCar(g);
-
+          
 
             foreach (Enemy1 Enemy in Enemy1)
-           {
-               Enemy.DrawEnemy1(g);
-          }
+            {
+                Enemy.DrawEnemy1(g);
+            }
             foreach (Missile m in missiles)
             {
                 m.drawMissile(g);
@@ -175,3 +298,4 @@ namespace Desert_Mayhem
         }
     }
 }
+

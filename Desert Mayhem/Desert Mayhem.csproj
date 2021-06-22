@@ -101,5 +101,14 @@
   <ItemGroup>
     <None Include="Resources\18e5c8c55771aa4.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\190043.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\52-523806_preview-top-down-tank-png-transparent-png.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngfind.com-tank-png-523806.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

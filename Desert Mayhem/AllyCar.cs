@@ -24,7 +24,7 @@ namespace Desert_Mayhem
         {
             x = 100;
             y = 100;
-            width = 30;
+            width = 40;
             height = 50;
             speed = 0;
             rotationAngle = 360;
@@ -37,7 +37,7 @@ namespace Desert_Mayhem
         public void DrawAllyCar(Graphics g)
         {
             //find the centre point of AllyCarRec
-            centre = new Point(AllyCarRec.X + width / 2, AllyCarRec.Y + height / 4);
+            centre = new Point(AllyCarRec.X + width / 2, AllyCarRec.Y + height / 2);
             //instantiate a Matrix object called matrix
             matrix = new Matrix();
             //rotate the matrix (AlllyCarRec) about its centre
