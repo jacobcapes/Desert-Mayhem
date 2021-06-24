@@ -95,6 +95,44 @@ namespace Desert_Mayhem
 
         }
 
+        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameOver.Visible = false;
+            //stop all timers and show death
+            tmrEnemy.Enabled = true;
+            tmrFuel.Enabled = true;
+            Fueltmr.Enabled = true;
+            tmrAllyCar.Enabled = true;
+            DrawEnemy1tmr.Enabled = true;
+            Score = 0;
+            Enemy1.Clear();
+        }
+
+        private void menuPause_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Visible = true;
+            //stop all timers and show death
+            tmrEnemy.Enabled = false;
+            tmrFuel.Enabled = false;
+            Fueltmr.Enabled = false;
+            tmrAllyCar.Enabled = false;
+            DrawEnemy1tmr.Enabled = false;
+        }
+
+        private void GameOver_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Visible = false;
+            tmrEnemy.Enabled = true;
+            Fueltmr.Enabled = true;
+            tmrAllyCar.Enabled = true;
+            DrawEnemy1tmr.Enabled = true;
+        }
+
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
             if (turnRight)
@@ -171,7 +209,7 @@ namespace Desert_Mayhem
             }
             if (death == true)
             {
-
+                Enemy1.Clear();
                 GameOver.Visible = true;
                 //stop all timers and show death
                 tmrEnemy.Enabled = false;

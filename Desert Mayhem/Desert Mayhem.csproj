@@ -110,5 +110,8 @@
   <ItemGroup>
     <None Include="Resources\pngfind.com-tank-png-523806.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pause-64x64.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

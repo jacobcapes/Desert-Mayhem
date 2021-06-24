@@ -32,6 +32,8 @@ namespace Desert_Mayhem
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGame));
             this.PnlGame = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.GameOver = new System.Windows.Forms.PictureBox();
             this.tmrAllyCar = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.DrawEnemy1tmr = new System.Windows.Forms.Timer(this.components);
@@ -42,14 +44,19 @@ namespace Desert_Mayhem
             this.Fueltmr = new System.Windows.Forms.Timer(this.components);
             this.lblSpeed = new System.Windows.Forms.Label();
             this.tmrFuel = new System.Windows.Forms.Timer(this.components);
-            this.GameOver = new System.Windows.Forms.PictureBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPause = new System.Windows.Forms.ToolStripMenuItem();
             this.PnlGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOver)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PnlGame
             // 
             this.PnlGame.BackColor = System.Drawing.Color.Tan;
+            this.PnlGame.Controls.Add(this.pictureBox1);
             this.PnlGame.Controls.Add(this.GameOver);
             this.PnlGame.Location = new System.Drawing.Point(12, 49);
             this.PnlGame.Name = "PnlGame";
@@ -57,6 +64,29 @@ namespace Desert_Mayhem
             this.PnlGame.TabIndex = 0;
             this.PnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGame_Paint);
             this.PnlGame.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PnlGame_PreviewKeyDown);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = global::Desert_Mayhem.Properties.Resources.pause;
+            this.pictureBox1.Location = new System.Drawing.Point(395, 134);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(65, 58);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // GameOver
+            // 
+            this.GameOver.Image = ((System.Drawing.Image)(resources.GetObject("GameOver.Image")));
+            this.GameOver.Location = new System.Drawing.Point(418, 223);
+            this.GameOver.Name = "GameOver";
+            this.GameOver.Size = new System.Drawing.Size(106, 60);
+            this.GameOver.TabIndex = 0;
+            this.GameOver.TabStop = false;
+            this.GameOver.Visible = false;
+            this.GameOver.Click += new System.EventHandler(this.GameOver_Click);
             // 
             // tmrAllyCar
             // 
@@ -128,15 +158,32 @@ namespace Desert_Mayhem
             this.tmrFuel.Interval = 3;
             this.tmrFuel.Tick += new System.EventHandler(this.tmrFuel_Tick);
             // 
-            // GameOver
+            // menuStrip1
             // 
-            this.GameOver.Image = ((System.Drawing.Image)(resources.GetObject("GameOver.Image")));
-            this.GameOver.Location = new System.Drawing.Point(418, 223);
-            this.GameOver.Name = "GameOver";
-            this.GameOver.Size = new System.Drawing.Size(106, 60);
-            this.GameOver.TabIndex = 0;
-            this.GameOver.TabStop = false;
-            this.GameOver.Visible = false;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStart,
+            this.menuPause});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuStart
+            // 
+            this.menuStart.BackColor = System.Drawing.Color.Green;
+            this.menuStart.Name = "menuStart";
+            this.menuStart.Size = new System.Drawing.Size(43, 20);
+            this.menuStart.Text = "Start";
+            this.menuStart.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // menuPause
+            // 
+            this.menuPause.BackColor = System.Drawing.Color.Orange;
+            this.menuPause.Name = "menuPause";
+            this.menuPause.Size = new System.Drawing.Size(50, 20);
+            this.menuPause.Text = "Pause";
+            this.menuPause.Click += new System.EventHandler(this.menuPause_Click);
             // 
             // FrmGame
             // 
@@ -148,14 +195,19 @@ namespace Desert_Mayhem
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PnlGame);
+            this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmGame";
             this.Text = "Desert Mayhem";
             this.Load += new System.EventHandler(this.FrmGame_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyUp);
             this.PnlGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOver)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,6 +227,10 @@ namespace Desert_Mayhem
         private System.Windows.Forms.Label lblSpeed;
         private System.Windows.Forms.Timer tmrFuel;
         private System.Windows.Forms.PictureBox GameOver;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuStart;
+        private System.Windows.Forms.ToolStripMenuItem menuPause;
+        public System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
