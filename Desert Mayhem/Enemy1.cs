@@ -14,6 +14,7 @@ namespace Desert_Mayhem
         // declare fields to use in the class
         public int x, y, width, height;//variables for the rectangle
         public Image Enemy1Image;//variable for the planet's image
+        public Image explosionImage;//variable for the planet's image
         public double xSpeed, ySpeed;
         public int rotationAngle;
         public Matrix matrix;
@@ -25,14 +26,24 @@ namespace Desert_Mayhem
         //Create a constructor (initialises the values of the fields)
         public Enemy1()
         {
-            x = rand.Next(0, 0);
-          
+            int position;
+            position = rand.Next(0, 2);
+            if (position < 1)
+            {
+                x = 1000;
+            }
+            else
+            {
+                x = 0;
+                    }
             y = rand.Next(0, 500);
+           
             width = 30;
             height = 30;
             rotationAngle = 0;
             //planetImage contains the BluePlane.png image
             Enemy1Image = Properties.Resources.Enemy1;
+            explosionImage = Properties.Resources.explosion;
             Enemy1Rec = new Rectangle(x, y, width, height);
 
 
@@ -52,6 +63,7 @@ namespace Desert_Mayhem
 
             g.DrawImage(Enemy1Image, Enemy1Rec);
         }
+  
         public double CalculateAngle(int startX, int startY, int arrivalX, int arrivalY)
         {
             //make the enemy point toward the blueplane

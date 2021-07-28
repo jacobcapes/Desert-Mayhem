@@ -12,8 +12,9 @@ namespace Desert_Mayhem
     {
         public int x, y, width, height;//variables for the rectangle
         public Image AllyCarImage;//variable for the cars image
+        public Image explosionImage;//variable for the cars image
         public Rectangle AllyCarRec;//variable for a rectangle to place our image in
-         //Create a constructor (initialises the values of the fields)
+        //Create a constructor (initialises the values of the fields)
         public decimal xSpeed, ySpeed;
         public int rotationAngle;
         public decimal speed;
@@ -29,7 +30,9 @@ namespace Desert_Mayhem
             speed = 0;
             rotationAngle = 360;
             //AllyCar contains the Car1.png image
+            explosionImage = Properties.Resources.explosion;
             AllyCarImage = Properties.Resources.car1;
+           
             AllyCarRec = new Rectangle(x, y, width, height);
            
         }
@@ -46,6 +49,21 @@ namespace Desert_Mayhem
             g.Transform = matrix;
             //draw the car
             g.DrawImage(AllyCarImage, AllyCarRec);
+           
+        }
+        public void DrawExplosion(Graphics g)
+        {
+            //find the centre point of AllyCarRec
+            centre = new Point(AllyCarRec.X + width / 2, AllyCarRec.Y + height / 2);
+            //instantiate a Matrix object called matrix
+            matrix = new Matrix();
+            //rotate the matrix (AlllyCarRec) about its centre
+            matrix.RotateAt(rotationAngle, centre);
+            //Set the current draw location to the rotated matrix point
+            g.Transform = matrix;
+            //draw the car
+            g.DrawImage(explosionImage, AllyCarRec);
+
         }
         public void MoveAllyCar()
         {

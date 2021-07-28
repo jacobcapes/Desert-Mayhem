@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Text.RegularExpressions;
+
 
 namespace Desert_Mayhem
 {
@@ -23,14 +25,16 @@ namespace Desert_Mayhem
         bool turnLeft, turnRight, up, down, shoot;
         int Espeed;
         int AllyCarPosX, AllyCarPosY, Enemy1PosX, Enemy1PosY;
-      
         decimal m1 = 0.09M; // Better
         decimal m2 = 0.05M; // Better
         int Score = 0;
         Random rand = new Random();
         bool death;
+
         Rectangle FuelRec = new Rectangle(0, 0, 20, 20);
         Image FuelImage = Properties.Resources.fueltank;
+
+        string playerName;
 
         int startx, starty;
         private void progressBar1_Click(object sender, EventArgs e)
@@ -92,20 +96,44 @@ namespace Desert_Mayhem
 
         private void FrmGame_Load(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Turn your vehicle side to side with the arrow keys. \n Press space to shoot at the enemy cars. \n collect fuel to make sure your tank can continue to move. \n Type your name in and press the start to begin. \n Warning you will explode if you are struck by an enemy \n \n press 'ok' to begin", "Game Instructions");
+            TxtName.Focus();
         }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GameOver.Visible = false;
-            //stop all timers and show death
-            tmrEnemy.Enabled = true;
-            tmrFuel.Enabled = true;
-            Fueltmr.Enabled = true;
-            tmrAllyCar.Enabled = true;
-            DrawEnemy1tmr.Enabled = true;
-            Score = 0;
-            Enemy1.Clear();
+            playerName = TxtName.Text;
+
+
+            if (Regex.IsMatch(playerName, @"^[a-zA-Z]+$"))//checks playerName for letters
+            {
+                death = false;
+                //if playerName valid (only letters) 
+                GameOver.Visible = false;
+                //stop all timers and show death
+                tmrEnemy.Enabled = true;
+                tmrFuel.Enabled = true;
+                Fueltmr.Enabled = true;
+                tmrAllyCar.Enabled = true;
+                DrawEnemy1tmr.Enabled = true;
+                Score = 0;
+                Enemy1.Clear();
+                TxtName.Enabled = false;
+                BtnCheck.Enabled = false;
+                BtnQuit.Enabled = false;
+                FuelTank.Value = 100;
+                menuStart.Enabled = false;
+                
+
+            }
+            else
+            {
+                //invalid playerName, clear txtName and focus on it to try again
+                MessageBox.Show("please enter a name using letters only!");
+                TxtName.Clear();
+                TxtName.Focus();
+            }
+
         }
 
         private void menuPause_Click(object sender, EventArgs e)
@@ -117,6 +145,7 @@ namespace Desert_Mayhem
             Fueltmr.Enabled = false;
             tmrAllyCar.Enabled = false;
             DrawEnemy1tmr.Enabled = false;
+            menuStart.Enabled = true;
         }
 
         private void GameOver_Click(object sender, EventArgs e)
@@ -133,30 +162,72 @@ namespace Desert_Mayhem
             DrawEnemy1tmr.Enabled = true;
         }
 
+        private void BtnQuit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void BtnCheck_Click(object sender, EventArgs e)
+        {
+            FrmHighScores FrmHighScore2 = new FrmHighScores(TxtName.Text, lblScore.Text);
+            Hide();
+            FrmHighScore2.ShowDialog();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void TxtName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtName_MouseClick(object sender, MouseEventArgs e)
+        {
+            TxtName.Enabled = true;
+        }
+
+        private void missileRegen_Tick(object sender, EventArgs e)
+        {
+
+            if  (missileDisplay.Value < 99)
+            {
+                missileDisplay.Value += 3;
+            }
+         
+        }
+
+        private void missileDisplay_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
             if (turnRight)
             {
-                AllyCar.rotationAngle += 4;
+                AllyCar.rotationAngle += 2;
             }
             if (turnLeft)
             {
-                AllyCar.rotationAngle -= 4;
+                AllyCar.rotationAngle -= 2;
             }
             if (up) // if left arrow key pressed
             {
 
-                if (AllyCar.speed < 10)
+                if (AllyCar.speed < 5)
                 {
-                    AllyCar.speed += m1;
+                    AllyCar.speed += 0.05M;
                 }
 
             }
             if (up != true) // if left arrow key pressed
             {
-                if (AllyCar.speed > 0)
+                if (AllyCar.speed > 1.99M)
                 {
-                    AllyCar.speed -= m2;
+                    AllyCar.speed -= 0.05M;
                 }
 
 
@@ -166,7 +237,7 @@ namespace Desert_Mayhem
 
                 if (AllyCar.speed > -3)
                 {
-                    AllyCar.speed -= m1;
+                    AllyCar.speed -= 0.09M;
                 }
             }
             //Parameters for the sides and top of panel
@@ -187,14 +258,24 @@ namespace Desert_Mayhem
             {
                 AllyCar.y = 465;
             }
-            if (shoot)
-            {
-                //if you have missiles available shoot.
-                missiles.Add(new Missile(AllyCar.AllyCarRec, AllyCar.rotationAngle));
 
-                shoot = false;
-                    
-            }
+
+                if (missileDisplay.Value == 99)
+                {
+                    if (shoot)
+                    {
+                    shoot = true;  
+                        //if you have missiles available shoot.
+                        missiles.Add(new Missile(AllyCar.AllyCarRec, AllyCar.rotationAngle));
+                        missileDisplay.Value = 0;
+
+
+                    }
+                }
+
+            
+            
+     
             foreach (Enemy1 Enemy in Enemy1)
             {
                 if (AllyCar.AllyCarRec.IntersectsWith(Enemy.Enemy1Rec))
@@ -209,6 +290,8 @@ namespace Desert_Mayhem
             }
             if (death == true)
             {
+
+                Image AllyCarImage = Properties.Resources.explosion;
                 Enemy1.Clear();
                 GameOver.Visible = true;
                 //stop all timers and show death
@@ -217,6 +300,9 @@ namespace Desert_Mayhem
                 Fueltmr.Enabled = false;
                 tmrAllyCar.Enabled = false;
                 DrawEnemy1tmr.Enabled = false;
+                TxtName.Enabled = true;
+                BtnCheck.Enabled = true;
+                BtnQuit.Enabled = true;
 
 
             }
@@ -237,7 +323,7 @@ namespace Desert_Mayhem
         {
             Enemy1.Add(new Enemy1());
             //draw new enemy with new speed
-            Espeed = 4;
+            Espeed = 2;
             // Enemy1.Add(new Enemy1());
         }
 
@@ -269,6 +355,9 @@ namespace Desert_Mayhem
                         Score += 1;
                         //if a missile hits a enemy
                         missiles.Remove(m);// remove missile
+                       
+                    
+                     
                         Enemy1.Remove(Enemy);
 
                         break;
@@ -314,19 +403,38 @@ namespace Desert_Mayhem
             InitializeComponent();
             //stops the panel and everything on it from buffering constantly
             FuelTank.Value = 100;
+            missileDisplay.Value = 0;
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, PnlGame, new object[] { true });
         }
 
         private void PnlGame_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
+            
             g.DrawImage(FuelImage, FuelRec);
-            AllyCar.DrawAllyCar(g);
-          
+            if (death == false)
+            {
 
+                AllyCar.DrawAllyCar(g);
+
+            }
+
+          
+            
+            if (death == true)
+            {
+
+                AllyCar.DrawExplosion(g);
+
+
+
+            }
+           
             foreach (Enemy1 Enemy in Enemy1)
             {
-                Enemy.DrawEnemy1(g);
+
+          Enemy.DrawEnemy1(g);
+
             }
             foreach (Missile m in missiles)
             {
