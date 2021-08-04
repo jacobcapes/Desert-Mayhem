@@ -55,6 +55,11 @@ namespace Desert_Mayhem
             this.missileDisplay = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.Fuel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblLevel = new System.Windows.Forms.Label();
+            this.menuStart2 = new System.Windows.Forms.Button();
+            this.menuHelp = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.PnlGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOver)).BeginInit();
@@ -64,9 +69,9 @@ namespace Desert_Mayhem
             // PnlGame
             // 
             this.PnlGame.BackColor = System.Drawing.Color.Tan;
+            this.PnlGame.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PnlGame.BackgroundImage")));
             this.PnlGame.Controls.Add(this.pictureBox1);
             this.PnlGame.Controls.Add(this.GameOver);
-            this.PnlGame.Controls.Add(this.lblSpeed);
             this.PnlGame.Location = new System.Drawing.Point(12, 49);
             this.PnlGame.Name = "PnlGame";
             this.PnlGame.Size = new System.Drawing.Size(1000, 500);
@@ -92,7 +97,7 @@ namespace Desert_Mayhem
             this.GameOver.Image = ((System.Drawing.Image)(resources.GetObject("GameOver.Image")));
             this.GameOver.Location = new System.Drawing.Point(418, 223);
             this.GameOver.Name = "GameOver";
-            this.GameOver.Size = new System.Drawing.Size(106, 60);
+            this.GameOver.Size = new System.Drawing.Size(106, 56);
             this.GameOver.TabIndex = 0;
             this.GameOver.TabStop = false;
             this.GameOver.Visible = false;
@@ -101,11 +106,12 @@ namespace Desert_Mayhem
             // lblSpeed
             // 
             this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(908, 334);
+            this.lblSpeed.Location = new System.Drawing.Point(1018, 363);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(13, 13);
             this.lblSpeed.TabIndex = 4;
             this.lblSpeed.Text = "0";
+            this.lblSpeed.Click += new System.EventHandler(this.lblSpeed_Click);
             // 
             // tmrAllyCar
             // 
@@ -129,17 +135,19 @@ namespace Desert_Mayhem
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(1111, 120);
+            this.lblScore.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScore.Location = new System.Drawing.Point(1101, 135);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(13, 13);
+            this.lblScore.Size = new System.Drawing.Size(16, 15);
             this.lblScore.TabIndex = 2;
             this.lblScore.Text = "0";
+            this.lblScore.Click += new System.EventHandler(this.lblScore_Click);
             // 
             // FuelTank
             // 
             this.FuelTank.BackColor = System.Drawing.Color.Goldenrod;
             this.FuelTank.ForeColor = System.Drawing.Color.BurlyWood;
-            this.FuelTank.Location = new System.Drawing.Point(1021, 293);
+            this.FuelTank.Location = new System.Drawing.Point(1021, 311);
             this.FuelTank.Name = "FuelTank";
             this.FuelTank.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.FuelTank.Size = new System.Drawing.Size(146, 39);
@@ -187,33 +195,37 @@ namespace Desert_Mayhem
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(1018, 67);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(39, 15);
             this.label2.TabIndex = 6;
             this.label2.Text = "Name";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1018, 120);
+            this.label3.Font = new System.Drawing.Font("MS Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1018, 135);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(52, 15);
             this.label3.TabIndex = 7;
             this.label3.Text = "Score";
             // 
             // TxtName
             // 
+            this.TxtName.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtName.Location = new System.Drawing.Point(1072, 64);
             this.TxtName.Name = "TxtName";
-            this.TxtName.Size = new System.Drawing.Size(100, 20);
+            this.TxtName.Size = new System.Drawing.Size(100, 19);
             this.TxtName.TabIndex = 8;
             this.TxtName.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TxtName_MouseClick);
             this.TxtName.TextChanged += new System.EventHandler(this.TxtName_TextChanged);
             // 
             // BtnCheck
             // 
-            this.BtnCheck.Location = new System.Drawing.Point(1021, 349);
+            this.BtnCheck.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCheck.Location = new System.Drawing.Point(1021, 468);
             this.BtnCheck.Name = "BtnCheck";
             this.BtnCheck.Size = new System.Drawing.Size(146, 23);
             this.BtnCheck.TabIndex = 10;
@@ -223,6 +235,7 @@ namespace Desert_Mayhem
             // 
             // BtnQuit
             // 
+            this.BtnQuit.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnQuit.Location = new System.Drawing.Point(1021, 526);
             this.BtnQuit.Name = "BtnQuit";
             this.BtnQuit.Size = new System.Drawing.Size(146, 23);
@@ -239,7 +252,7 @@ namespace Desert_Mayhem
             // 
             // missileDisplay
             // 
-            this.missileDisplay.Location = new System.Drawing.Point(1021, 213);
+            this.missileDisplay.Location = new System.Drawing.Point(1021, 228);
             this.missileDisplay.Maximum = 99;
             this.missileDisplay.Name = "missileDisplay";
             this.missileDisplay.Size = new System.Drawing.Size(146, 38);
@@ -251,26 +264,90 @@ namespace Desert_Mayhem
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1018, 197);
+            this.label1.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1018, 208);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.Size = new System.Drawing.Size(133, 15);
             this.label1.TabIndex = 13;
             this.label1.Text = "Missile Reload";
             // 
             // Fuel
             // 
             this.Fuel.AutoSize = true;
-            this.Fuel.Location = new System.Drawing.Point(1018, 272);
+            this.Fuel.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Fuel.Location = new System.Drawing.Point(1018, 293);
             this.Fuel.Name = "Fuel";
-            this.Fuel.Size = new System.Drawing.Size(27, 13);
+            this.Fuel.Size = new System.Drawing.Size(43, 15);
             this.Fuel.TabIndex = 14;
             this.Fuel.Text = "Fuel";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(1018, 171);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Level";
+            // 
+            // lblLevel
+            // 
+            this.lblLevel.AutoSize = true;
+            this.lblLevel.BackColor = System.Drawing.Color.Transparent;
+            this.lblLevel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblLevel.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLevel.Location = new System.Drawing.Point(1101, 169);
+            this.lblLevel.Name = "lblLevel";
+            this.lblLevel.Size = new System.Drawing.Size(16, 15);
+            this.lblLevel.TabIndex = 16;
+            this.lblLevel.Text = "0";
+            this.lblLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // menuStart2
+            // 
+            this.menuStart2.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStart2.Location = new System.Drawing.Point(1018, 99);
+            this.menuStart2.Name = "menuStart2";
+            this.menuStart2.Size = new System.Drawing.Size(151, 23);
+            this.menuStart2.TabIndex = 17;
+            this.menuStart2.Text = "Start";
+            this.menuStart2.UseVisualStyleBackColor = true;
+            this.menuStart2.Click += new System.EventHandler(this.menuStart2_Click);
+            // 
+            // menuHelp
+            // 
+            this.menuHelp.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuHelp.Location = new System.Drawing.Point(1021, 497);
+            this.menuHelp.Name = "menuHelp";
+            this.menuHelp.Size = new System.Drawing.Size(146, 23);
+            this.menuHelp.TabIndex = 18;
+            this.menuHelp.Text = "Help";
+            this.menuHelp.UseVisualStyleBackColor = true;
+            this.menuHelp.Click += new System.EventHandler(this.menuHelp_Click);
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("MS Gothic", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(210, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(557, 37);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Desert Mayhem";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FrmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 561);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.menuHelp);
+            this.Controls.Add(this.menuStart2);
+            this.Controls.Add(this.lblSpeed);
+            this.Controls.Add(this.lblLevel);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.Fuel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.missileDisplay);
@@ -286,12 +363,11 @@ namespace Desert_Mayhem
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmGame";
-            this.Text = "Desert Mayhem";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.FrmGame_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyUp);
             this.PnlGame.ResumeLayout(false);
-            this.PnlGame.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOver)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -327,6 +403,11 @@ namespace Desert_Mayhem
         private System.Windows.Forms.ProgressBar missileDisplay;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Fuel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblLevel;
+        private System.Windows.Forms.Button menuStart2;
+        private System.Windows.Forms.Button menuHelp;
+        private System.Windows.Forms.Label label5;
     }
 }
 

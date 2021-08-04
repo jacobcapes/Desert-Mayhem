@@ -25,9 +25,9 @@ namespace Desert_Mayhem
         bool turnLeft, turnRight, up, down, shoot;
         int Espeed;
         int AllyCarPosX, AllyCarPosY, Enemy1PosX, Enemy1PosY;
-        decimal m1 = 0.09M; // Better
-        decimal m2 = 0.05M; // Better
         int Score = 0;
+       
+        int Level = 0;
         Random rand = new Random();
         bool death;
 
@@ -71,11 +71,16 @@ namespace Desert_Mayhem
 
             //Base stamina regen
 
-            if (FuelTank.Value < FuelTank.Minimum + 3)
+            if (FuelTank.Value < 5)
             {
-                up = false;
+                if (AllyCar.speed > 1.99m)
+                {
+
+                    AllyCar.speed -= 0.3m;
+                }
             }
 
+  
 
 
         }
@@ -123,7 +128,8 @@ namespace Desert_Mayhem
                 BtnQuit.Enabled = false;
                 FuelTank.Value = 100;
                 menuStart.Enabled = false;
-                
+                menuStart2.Enabled = false;
+                menuHelp.Enabled = false;
 
             }
             else
@@ -146,9 +152,10 @@ namespace Desert_Mayhem
             tmrAllyCar.Enabled = false;
             DrawEnemy1tmr.Enabled = false;
             menuStart.Enabled = true;
+            menuStart2.Enabled = true;
+            menuHelp.Enabled = true;
         }
-
-        private void GameOver_Click(object sender, EventArgs e)
+            private void GameOver_Click(object sender, EventArgs e)
         {
 
         }
@@ -204,44 +211,127 @@ namespace Desert_Mayhem
 
         }
 
+        private void lblScore_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStart2_Click(object sender, EventArgs e)
+        {
+            playerName = TxtName.Text;
+
+
+            if (Regex.IsMatch(playerName, @"^[a-zA-Z]+$"))//checks playerName for letters
+            {
+                death = false;
+                //if playerName valid (only letters) 
+                GameOver.Visible = false;
+                //stop all timers and show death
+                tmrEnemy.Enabled = true;
+                tmrFuel.Enabled = true;
+                Fueltmr.Enabled = true;
+                tmrAllyCar.Enabled = true;
+                DrawEnemy1tmr.Enabled = true;
+                Score = 0;
+                Enemy1.Clear();
+                TxtName.Enabled = false;
+                BtnCheck.Enabled = false;
+                BtnQuit.Enabled = false;
+                FuelTank.Value = 100;
+                menuStart.Enabled = false;
+                menuStart2.Enabled = false;
+                menuHelp.Enabled = false;
+
+            }
+            else
+            {
+                //invalid playerName, clear txtName and focus on it to try again
+                MessageBox.Show("please enter a name using letters only!");
+                TxtName.Clear();
+                TxtName.Focus();
+            }
+
+        }
+
+        private void menuHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Turn your vehicle side to side with the arrow keys. \n Press space to shoot at the enemy cars. \n collect fuel to make sure your tank can continue to move. \n Type your name in and press the start to begin. \n Warning you will explode if you are struck by an enemy \n \n press 'ok' to begin", "Game Instructions");
+        }
+
+        private void velocityBar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSpeed_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
-            if (turnRight)
+            if (FuelTank.Value > 5)
             {
-                AllyCar.rotationAngle += 2;
-            }
-            if (turnLeft)
-            {
-                AllyCar.rotationAngle -= 2;
-            }
-            if (up) // if left arrow key pressed
-            {
-
-                if (AllyCar.speed < 5)
+                if (turnRight)
                 {
-                    AllyCar.speed += 0.05M;
+                    AllyCar.rotationAngle += 2;
                 }
-
-            }
-            if (up != true) // if left arrow key pressed
-            {
-                if (AllyCar.speed > 1.99M)
+                if (turnLeft)
                 {
-                    AllyCar.speed -= 0.05M;
+                    AllyCar.rotationAngle -= 2;
                 }
-
-
-            }
-            if (down) // if left arrow key pressed
-            {
-
-                if (AllyCar.speed > -3)
+                if (up) // if left arrow key pressed
                 {
-                    AllyCar.speed -= 0.09M;
+                    if (AllyCar.speed < 5)
+                    {
+                        if (AllyCar.speed < 1.99m)
+                        {
+                            AllyCar.speed += 0.2m;
+                        }
+                        if (AllyCar.speed > 1.99m)
+                        {
+
+                            AllyCar.speed += 0.03m;
+                        }
+                        AllyCar.speed += 0.03m;
+                    }
+
+
+
+                }
+                if (up != true) // if left arrow key pressed
+                {
+                    if (AllyCar.speed > 1.99m)
+                    {
+
+                        AllyCar.speed -= 0.09m;
+                    }
+
+
+                }
+                if (down) // if left arrow key pressed
+                {
+
+                    if (AllyCar.speed > -3)
+                    {
+                        AllyCar.speed -= 0.5m;
+                        if (AllyCar.speed > -4)
+                        {
+                            AllyCar.speed += 0.1m;
+                        }
+                    }
+                    if (down != true) // if left arrow key pressed
+                    {
+                        if (AllyCar.speed > -4)
+                        {
+                            AllyCar.speed += 0.1m;
+                        }
+
+                    }
                 }
             }
-            //Parameters for the sides and top of panel
-            if (AllyCar.x < 0)
+                //Parameters for the sides and top of panel
+                if (AllyCar.x < 0)
             {
                 AllyCar.x = 0;
             }
@@ -272,19 +362,69 @@ namespace Desert_Mayhem
 
                     }
                 }
+            if (Score == 2)
+            {
+                Level = 1;
+                DrawEnemy1tmr.Interval = 9000;
+            }
+            if (Score == 4)
+            {
+                Level = 2;
+                DrawEnemy1tmr.Interval = 8000;
+            }
+            if (Score == 6)
+            {
+                Level = 3;
+                DrawEnemy1tmr.Interval = 7500;
+            }
+            if (Score == 8)
+            {
+                Level = 4;
+                DrawEnemy1tmr.Interval = 7000;
+            }
+            if (Score == 10)
+            {
+                Level = 5;
+                DrawEnemy1tmr.Interval = 6000;
+            }
+            if (Score == 12)
+            {
+                Level = 6;
+                DrawEnemy1tmr.Interval = 5500;
+            }
+            if (Score == 14)
+            {
+                Level = 7;
+                DrawEnemy1tmr.Interval = 5000;
+            }
+            if (Score == 16)
+            {
+                Level = 8;
+                DrawEnemy1tmr.Interval = 4500;
+            }
+            if (Score == 18)
+            {
+                Level = 9;
+                DrawEnemy1tmr.Interval = 4000;
+            }
+            if (Score == 20)
+            {
+                Level = 10;
+                DrawEnemy1tmr.Interval = 3500;
+            }
+            lblLevel.Text = Level.ToString();
 
-            
-            
-     
+
             foreach (Enemy1 Enemy in Enemy1)
             {
+               
                 if (AllyCar.AllyCarRec.IntersectsWith(Enemy.Enemy1Rec))
                 {
-                    
+                   
+                    Image AllyCarImage = Properties.Resources.explosion;
                     death = true;
                     Enemy1.Remove(Enemy);
                     break;
-                   
 
                 }
             }
@@ -304,6 +444,18 @@ namespace Desert_Mayhem
                 BtnCheck.Enabled = true;
                 BtnQuit.Enabled = true;
 
+                DialogResult res = MessageBox.Show(Score + " Was your score \n Would you like to see how well you did on the leaderboards?", "Game Over ", MessageBoxButtons.YesNo);
+                if (res == DialogResult.Yes)
+                {
+                    FrmHighScores FrmHighScore2 = new FrmHighScores(TxtName.Text, lblScore.Text);
+                    Hide();
+                    FrmHighScore2.ShowDialog();
+                }
+
+                if (res == DialogResult.No)
+                {
+
+                }
 
             }
             //update the rotation angle and movment of blueplane
@@ -414,25 +566,20 @@ namespace Desert_Mayhem
             g.DrawImage(FuelImage, FuelRec);
             if (death == false)
             {
-
                 AllyCar.DrawAllyCar(g);
-
             }
 
           
             
             if (death == true)
             {
-
                 AllyCar.DrawExplosion(g);
-
-
-
             }
-           
-            foreach (Enemy1 Enemy in Enemy1)
-            {
+   
 
+                      foreach (Enemy1 Enemy in Enemy1)
+            {
+                   
           Enemy.DrawEnemy1(g);
 
             }

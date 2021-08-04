@@ -32,7 +32,6 @@ namespace Desert_Mayhem
             //AllyCar contains the Car1.png image
             explosionImage = Properties.Resources.explosion;
             AllyCarImage = Properties.Resources.car1;
-           
             AllyCarRec = new Rectangle(x, y, width, height);
            
         }

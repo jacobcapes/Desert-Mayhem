@@ -39,7 +39,7 @@ namespace Desert_Mayhem
             y = rand.Next(0, 500);
            
             width = 30;
-            height = 30;
+            height = 50;
             rotationAngle = 0;
             //planetImage contains the BluePlane.png image
             Enemy1Image = Properties.Resources.Enemy1;

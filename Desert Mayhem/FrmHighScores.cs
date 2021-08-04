@@ -43,7 +43,6 @@ namespace Desert_Mayhem
             {
                 BoxName1.Items.Add(s.Name);
                 BoxScore1.Items.Add(s.Score);
-
             }
         }
         public void SortHighScores()
@@ -63,7 +62,7 @@ namespace Desert_Mayhem
 
 
 
-        private void FrmHighScores_Load(object sender, EventArgs e)
+        public void FrmHighScores_Load(object sender, EventArgs e)
         {
             int lowest_score = highScores[(highScores.Count - 1)].Score;
             if (int.Parse(lblPlayerScore.Text) > lowest_score)
