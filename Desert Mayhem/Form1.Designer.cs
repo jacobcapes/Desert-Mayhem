@@ -32,6 +32,8 @@ namespace Desert_Mayhem
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGame));
             this.PnlGame = new System.Windows.Forms.Panel();
+            this.lblPause = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GameOver = new System.Windows.Forms.PictureBox();
             this.lblSpeed = new System.Windows.Forms.Label();
@@ -60,7 +62,9 @@ namespace Desert_Mayhem
             this.menuStart2 = new System.Windows.Forms.Button();
             this.menuHelp = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.lblLives = new System.Windows.Forms.Label();
             this.PnlGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOver)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -70,6 +74,8 @@ namespace Desert_Mayhem
             // 
             this.PnlGame.BackColor = System.Drawing.Color.Tan;
             this.PnlGame.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PnlGame.BackgroundImage")));
+            this.PnlGame.Controls.Add(this.lblPause);
+            this.PnlGame.Controls.Add(this.pictureBox2);
             this.PnlGame.Controls.Add(this.pictureBox1);
             this.PnlGame.Controls.Add(this.GameOver);
             this.PnlGame.Location = new System.Drawing.Point(12, 49);
@@ -79,13 +85,38 @@ namespace Desert_Mayhem
             this.PnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.PnlGame_Paint);
             this.PnlGame.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PnlGame_PreviewKeyDown);
             // 
+            // lblPause
+            // 
+            this.lblPause.BackColor = System.Drawing.Color.Transparent;
+            this.lblPause.Font = new System.Drawing.Font("MS Gothic", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPause.Location = new System.Drawing.Point(391, 220);
+            this.lblPause.Name = "lblPause";
+            this.lblPause.Size = new System.Drawing.Size(163, 36);
+            this.lblPause.TabIndex = 20;
+            this.lblPause.Text = "Game paused press play to resume";
+            this.lblPause.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPause.Visible = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(447, 169);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(53, 48);
+            this.pictureBox2.TabIndex = 2;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = global::Desert_Mayhem.Properties.Resources.pause;
-            this.pictureBox1.Location = new System.Drawing.Point(438, 159);
+            this.pictureBox1.Location = new System.Drawing.Point(948, -8);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(65, 58);
+            this.pictureBox1.Size = new System.Drawing.Size(49, 52);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
@@ -106,7 +137,7 @@ namespace Desert_Mayhem
             // lblSpeed
             // 
             this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(1018, 363);
+            this.lblSpeed.Location = new System.Drawing.Point(1018, 374);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(13, 13);
             this.lblSpeed.TabIndex = 4;
@@ -115,7 +146,7 @@ namespace Desert_Mayhem
             // 
             // tmrAllyCar
             // 
-            this.tmrAllyCar.Interval = 3;
+            this.tmrAllyCar.Interval = 2;
             this.tmrAllyCar.Tick += new System.EventHandler(this.tmrAllyCar_Tick);
             // 
             // timer1
@@ -129,7 +160,7 @@ namespace Desert_Mayhem
             // 
             // tmrEnemy
             // 
-            this.tmrEnemy.Interval = 10;
+            this.tmrEnemy.Interval = 5;
             this.tmrEnemy.Tick += new System.EventHandler(this.tmrEnemy_Tick);
             // 
             // lblScore
@@ -337,11 +368,25 @@ namespace Desert_Mayhem
             this.label5.Text = "Desert Mayhem";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblLives
+            // 
+            this.lblLives.AutoSize = true;
+            this.lblLives.BackColor = System.Drawing.Color.Transparent;
+            this.lblLives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblLives.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLives.Location = new System.Drawing.Point(1101, 372);
+            this.lblLives.Name = "lblLives";
+            this.lblLives.Size = new System.Drawing.Size(16, 15);
+            this.lblLives.TabIndex = 20;
+            this.lblLives.Text = "2";
+            this.lblLives.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 561);
+            this.Controls.Add(this.lblLives);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuHelp);
             this.Controls.Add(this.menuStart2);
@@ -368,6 +413,7 @@ namespace Desert_Mayhem
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmGame_KeyUp);
             this.PnlGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameOver)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -408,6 +454,9 @@ namespace Desert_Mayhem
         private System.Windows.Forms.Button menuStart2;
         private System.Windows.Forms.Button menuHelp;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblPause;
+        public System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label lblLives;
     }
 }
 

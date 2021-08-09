@@ -27,8 +27,8 @@ namespace Desert_Mayhem
             missile = Properties.Resources.missile;
             missileRec = new Rectangle(x, y, width, height);
             //this code works out the speed of the missile to be used in the moveMissile method
-            xSpeed = 30 * (Math.Cos((missileRotate - 90) * Math.PI / 180));
-            ySpeed = 30 * (Math.Sin((missileRotate + 90) * Math.PI / 180));
+            xSpeed = 20 * (Math.Cos((missileRotate - 90) * Math.PI / 180));
+            ySpeed = 20 * (Math.Sin((missileRotate + 90) * Math.PI / 180));
             //calculate x,y to move missile to middle of spaceship in drawMissile method
             x = AllyCarRec.X + AllyCarRec.Width / 2;
             y = AllyCarRec.Y + AllyCarRec.Height / 2;

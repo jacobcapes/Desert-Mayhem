@@ -23,7 +23,7 @@ namespace Desert_Mayhem
 
         public AllyCar()
         {
-            x = 100;
+            x = 105;
             y = 100;
             width = 40;
             height = 50;
@@ -79,9 +79,16 @@ namespace Desert_Mayhem
             x = startx;
             x = starty;
             rotationAngle = 0;
+
         }
         public void Rotatecar(int AllyCarRotate, int Speed)
         {
+            if (rotationAngle == (90))
+                {
+                xSpeed = 2;
+                ySpeed = 2;
+            }
+            else
             //find the rotation angle of the blueplane
             xSpeed = (decimal)(Speed * (Math.Cos((AllyCarRotate - 90) * Math.PI / 180)));
             ySpeed = (decimal)(Speed * (Math.Sin((AllyCarRotate + 90) * Math.PI / 180)));
