@@ -41,7 +41,7 @@ namespace Desert_Mayhem
             width = 30;
             height = 50;
             rotationAngle = 0;
-            //planetImage contains the BluePlane.png image
+            //Enemy1Image contains the enemy.png image
             Enemy1Image = Properties.Resources.Enemy1;
             explosionImage = Properties.Resources.explosion;
             Enemy1Rec = new Rectangle(x, y, width, height);
@@ -59,14 +59,14 @@ namespace Desert_Mayhem
             matrix.RotateAt(rotationAngle, centre);
             //Set the current draw location to the rotated matrix point
             g.Transform = matrix;
-            //draw the spaceship
+            //draw the enemy
 
             g.DrawImage(Enemy1Image, Enemy1Rec);
         }
   
         public double CalculateAngle(int startX, int startY, int arrivalX, int arrivalY)
         {
-            //make the enemy point toward the blueplane
+            //make the enemy point toward the player
             var radian = Math.Atan2((arrivalY - startY), (arrivalX - startX));
             var angle = (90 + radian * (180 / Math.PI) + 360) % 360;
 

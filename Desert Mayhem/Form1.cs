@@ -81,7 +81,7 @@ namespace Desert_Mayhem
 
         private void FrmGame_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Turn your vehicle side to side with the arrow keys. \n Press space to shoot at the enemy cars. \n collect fuel to make sure your tank can continue to move. \n Type your name in and press the start to begin. \n Warning you will explode if you are struck by an enemy \n \n press 'ok' to begin", "Game Instructions");
+            MessageBox.Show("Turn your vehicle side to side with the arrow keys. \n Press space to shoot at the enemy cars. \n collect fuel to make sure your tank can continue to move. \n Type your name in and press the start to begin. \n Warning you will explode if you are struck by an enemy \n \n press 'ok' to begin \n\n\n Images accredited to \n Blue tank - Seek PNG\n Red Enemy Car - Seek PNG\n Missile - Martin Burch", "Game Instructions");
             TxtName.Focus();
         }
 
@@ -245,6 +245,7 @@ namespace Desert_Mayhem
                 AllyCar.x = startx;
                 AllyCar.y = starty;
                 AllyCar.rotationAngle = 0;
+                Lives = 2;
 
             }
             else
@@ -259,7 +260,7 @@ namespace Desert_Mayhem
 
         private void menuHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Turn your vehicle side to side with the arrow keys. \n Press space to shoot at the enemy cars. \n collect fuel to make sure your tank can continue to move. \n Type your name in and press the start to begin. \n Warning you will explode if you are struck by an enemy \n \n press 'ok' to begin", "Game Instructions");
+            MessageBox.Show("Turn your vehicle side to side with the arrow keys. \n Press space to shoot at the enemy cars. \n collect fuel to make sure your tank can continue to move. \n Type your name in and press the start to begin. \n Warning you will explode if you are struck by an enemy \n \n press 'ok' to begin\n\n\n Images accredited to \n Blue tank - Seek PNG\n Red Enemy Car - Seek PNG\n Missile - Martin Burch", "Game Instructions");
         }
 
         private void velocityBar_Click(object sender, EventArgs e)
@@ -287,12 +288,17 @@ namespace Desert_Mayhem
             missileRegen.Enabled = true;
         }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
 
             if (FuelTank.Value < 5)
             {
-                if (AllyCar.speed < 1.99m)
+                if (AllyCar.speed < 0.99m)
                 {
 
                     AllyCar.speed += 0.03m;
@@ -305,11 +311,11 @@ namespace Desert_Mayhem
                 {
                     if (AllyCar.speed < 2.5m)
                     {
-                        if (AllyCar.speed < 1.99m)
+                        if (AllyCar.speed < 0.99m)
                         {
                             AllyCar.speed += 0.2m;
                         }
-                        if (AllyCar.speed > 1.99m)
+                        if (AllyCar.speed > 0.99m)
                         {
 
                             AllyCar.speed += 0.03m;
@@ -322,7 +328,7 @@ namespace Desert_Mayhem
                 }
                 if (up != true) // if left arrow key pressed
                 {
-                    if (AllyCar.speed > 1.99m)
+                    if (AllyCar.speed > 0.99m)
                     {
 
                         AllyCar.speed -= 0.09m;
@@ -355,11 +361,11 @@ namespace Desert_Mayhem
                 {
                     if (AllyCar.speed < 5)
                     {
-                        if (AllyCar.speed < 1.99m)
+                        if (AllyCar.speed < 0.99m)
                         {
                             AllyCar.speed += 0.2m;
                         }
-                        if (AllyCar.speed > 1.99m)
+                        if (AllyCar.speed > 0.99m)
                         {
 
                             AllyCar.speed += 0.03m;
@@ -369,7 +375,7 @@ namespace Desert_Mayhem
                 }
                 if (up != true) // if left arrow key pressed
                 {
-                    if (AllyCar.speed > 1.99m)
+                    if (AllyCar.speed > 0.99m)
                     {
 
                         AllyCar.speed -= 0.09m;
@@ -542,6 +548,7 @@ namespace Desert_Mayhem
 
         private void tmrEnemy_Tick(object sender, EventArgs e)
         {
+
             if (Lives == 0)
             {
                 death = true;
@@ -572,11 +579,7 @@ namespace Desert_Mayhem
                         Score += 1;
                         //if a missile hits a enemy
                         missiles.Remove(m);// remove missile
-                       
-                    
-                     
                         Enemy1.Remove(Enemy);
-
                         break;
                     }
 

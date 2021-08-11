@@ -63,6 +63,7 @@ namespace Desert_Mayhem
             this.menuHelp = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lblLives = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.PnlGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -137,7 +138,7 @@ namespace Desert_Mayhem
             // lblSpeed
             // 
             this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(1018, 374);
+            this.lblSpeed.Location = new System.Drawing.Point(1018, 418);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(13, 13);
             this.lblSpeed.TabIndex = 4;
@@ -160,7 +161,7 @@ namespace Desert_Mayhem
             // 
             // tmrEnemy
             // 
-            this.tmrEnemy.Interval = 5;
+            this.tmrEnemy.Interval = 1;
             this.tmrEnemy.Tick += new System.EventHandler(this.tmrEnemy_Tick);
             // 
             // lblScore
@@ -178,7 +179,7 @@ namespace Desert_Mayhem
             // 
             this.FuelTank.BackColor = System.Drawing.Color.Goldenrod;
             this.FuelTank.ForeColor = System.Drawing.Color.BurlyWood;
-            this.FuelTank.Location = new System.Drawing.Point(1021, 311);
+            this.FuelTank.Location = new System.Drawing.Point(1021, 331);
             this.FuelTank.Name = "FuelTank";
             this.FuelTank.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.FuelTank.Size = new System.Drawing.Size(146, 39);
@@ -283,7 +284,7 @@ namespace Desert_Mayhem
             // 
             // missileDisplay
             // 
-            this.missileDisplay.Location = new System.Drawing.Point(1021, 228);
+            this.missileDisplay.Location = new System.Drawing.Point(1021, 256);
             this.missileDisplay.Maximum = 99;
             this.missileDisplay.Name = "missileDisplay";
             this.missileDisplay.Size = new System.Drawing.Size(146, 38);
@@ -296,7 +297,7 @@ namespace Desert_Mayhem
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1018, 208);
+            this.label1.Location = new System.Drawing.Point(1018, 238);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(133, 15);
             this.label1.TabIndex = 13;
@@ -306,7 +307,7 @@ namespace Desert_Mayhem
             // 
             this.Fuel.AutoSize = true;
             this.Fuel.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Fuel.Location = new System.Drawing.Point(1018, 293);
+            this.Fuel.Location = new System.Drawing.Point(1018, 313);
             this.Fuel.Name = "Fuel";
             this.Fuel.Size = new System.Drawing.Size(43, 15);
             this.Fuel.TabIndex = 14;
@@ -374,18 +375,30 @@ namespace Desert_Mayhem
             this.lblLives.BackColor = System.Drawing.Color.Transparent;
             this.lblLives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblLives.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLives.Location = new System.Drawing.Point(1101, 372);
+            this.lblLives.Location = new System.Drawing.Point(1101, 207);
             this.lblLives.Name = "lblLives";
             this.lblLives.Size = new System.Drawing.Size(16, 15);
             this.lblLives.TabIndex = 20;
             this.lblLives.Text = "2";
             this.lblLives.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(1018, 207);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 15);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Lives";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
             // FrmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 561);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLives);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuHelp);
@@ -457,6 +470,7 @@ namespace Desert_Mayhem
         private System.Windows.Forms.Label lblPause;
         public System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblLives;
+        private System.Windows.Forms.Label label6;
     }
 }
 

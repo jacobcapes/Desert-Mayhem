@@ -22,13 +22,13 @@ namespace Desert_Mayhem
         // missile where the spaceship is located and at the correct angle
         public Missile(Rectangle AllyCarRec, int missileRotate)
         {
-            width = 10;
+            width = 10; 
             height = 20;
             missile = Properties.Resources.missile;
             missileRec = new Rectangle(x, y, width, height);
             //this code works out the speed of the missile to be used in the moveMissile method
-            xSpeed = 20 * (Math.Cos((missileRotate - 90) * Math.PI / 180));
-            ySpeed = 20 * (Math.Sin((missileRotate + 90) * Math.PI / 180));
+            xSpeed = 10 * (Math.Cos((missileRotate - 90) * Math.PI / 180));
+            ySpeed = 10 * (Math.Sin((missileRotate + 90) * Math.PI / 180));
             //calculate x,y to move missile to middle of spaceship in drawMissile method
             x = AllyCarRec.X + AllyCarRec.Width / 2;
             y = AllyCarRec.Y + AllyCarRec.Height / 2;
