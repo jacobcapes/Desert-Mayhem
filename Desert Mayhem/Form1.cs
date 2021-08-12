@@ -245,7 +245,7 @@ namespace Desert_Mayhem
                 AllyCar.x = startx;
                 AllyCar.y = starty;
                 AllyCar.rotationAngle = 0;
-                Lives = 2;
+            
 
             }
             else
@@ -295,7 +295,7 @@ namespace Desert_Mayhem
 
         private void tmrAllyCar_Tick(object sender, EventArgs e)
         {
-
+            //if fueltank is less than 5 car slows down and has new speed variables
             if (FuelTank.Value < 5)
             {
                 if (AllyCar.speed < 0.99m)
@@ -307,7 +307,7 @@ namespace Desert_Mayhem
                 {
                     AllyCar.speed -= 0.2m;
                 }
-                if (up) // if left arrow key pressed
+                if (up) // if up arrow key pressed
                 {
                     if (AllyCar.speed < 2.5m)
                     {
@@ -326,7 +326,7 @@ namespace Desert_Mayhem
 
 
                 }
-                if (up != true) // if left arrow key pressed
+                if (up != true) // if up arrow key not pressed
                 {
                     if (AllyCar.speed > 0.99m)
                     {
@@ -336,28 +336,30 @@ namespace Desert_Mayhem
 
 
                 }
-                if (turnRight)
+                if (turnRight) // if right arrow key pressed
                 {
                     AllyCar.rotationAngle += 2;
                 }
-                if (turnLeft)
+                if (turnLeft) // if left arrow key pressed
                 {
                     AllyCar.rotationAngle -= 2;
                 }
 
             }
-
+            //if car has more than 5 fuel car has fastest speed values
             if (FuelTank.Value > 5)
             {
+                // if right arrow key pressed
                 if (turnRight)
                 {
                     AllyCar.rotationAngle += 2;
                 }
+                // if left arrow key pressed
                 if (turnLeft)
                 {
                     AllyCar.rotationAngle -= 2;
                 }
-                if (up) // if left arrow key pressed
+                if (up) // if up arrow key pressed
                 {
                     if (AllyCar.speed < 5)
                     {
@@ -373,7 +375,7 @@ namespace Desert_Mayhem
                         AllyCar.speed += 0.03m;
                     }
                 }
-                if (up != true) // if left arrow key pressed
+                if (up != true) // if up arrow key not pressed
                 {
                     if (AllyCar.speed > 0.99m)
                     {
@@ -382,7 +384,7 @@ namespace Desert_Mayhem
                     }
                 }
 
-                if (down) // if left arrow key pressed
+                if (down) // if down arrow key pressed
                 {
                     if (AllyCar.speed < 2.5m)
                     {
@@ -392,7 +394,7 @@ namespace Desert_Mayhem
                         }
                     } 
                 }
-                if (down != true) // if left arrow key pressed
+                if (down != true) // if dowh arrow key not pressed
                 {
                     if (AllyCar.speed < -1.99m)
                     {
@@ -400,7 +402,7 @@ namespace Desert_Mayhem
                     }
                 }
             }
-                //Parameters for the sides and top of panel
+             //Parameters for the sides and top of panel
             if (AllyCar.x < 10)
             {
                 AllyCar.x = 10;
@@ -419,19 +421,19 @@ namespace Desert_Mayhem
                 AllyCar.y = 445;
             }
 
-
-                if (missileDisplay.Value == 99)
+            //if you have missiles reloaded and reload bar is full allow the car to shoot
+            if (missileDisplay.Value == 99)
                 {
                     if (shoot)
                     {
                     shoot = true;  
-                        //if you have missiles available shoot.
                         missiles.Add(new Missile(AllyCar.AllyCarRec, AllyCar.rotationAngle));
                         missileDisplay.Value = 0;
 
 
                     }
                 }
+            //increasing speed of enemy spawndifficulty
             if (Score == 2)
             {
                 Level = 1;
@@ -484,7 +486,7 @@ namespace Desert_Mayhem
             }
             lblLevel.Text = Level.ToString();
 
-
+            //if enemy hits into player end game
             foreach (Enemy1 Enemy in Enemy1)
             {
 
@@ -492,24 +494,21 @@ namespace Desert_Mayhem
                 {
                     Image AllyCarImage = Properties.Resources.explosion;
                     Enemy1.Remove(Enemy);
-                    Lives -= 1;
-                    lblLives.Text = Lives.ToString();
+                    death = true;
                     break;
         
-
                 }
-                lblLives.Text = Lives.ToString();
+          
             }
+            // stop all timers and show death
             if (death == true)
             {
                 pictureBox1.Visible = false;
                 pictureBox2.Visible = false;
                 lblPause.Visible = false;
-
                 Image AllyCarImage = Properties.Resources.explosion;
                 Enemy1.Clear();
                 GameOver.Visible = true;
-                //stop all timers and show death
                 tmrEnemy.Enabled = false;
                 tmrFuel.Enabled = false;
                 Fueltmr.Enabled = false;
@@ -525,14 +524,14 @@ namespace Desert_Mayhem
 
 
             }
-            //update the rotation angle and movment of blueplane
+            //update the rotation angle and movment of AllyCar
             AllyCar.Rotatecar(AllyCar.rotationAngle, (int)AllyCar.speed);
             lblSpeed.Text = AllyCar.speed.ToString();
             AllyCar.MoveAllyCar();
             PnlGame.Invalidate();
             if (AllyCar.AllyCarRec.IntersectsWith(FuelRec))
             {
-                //give more ammo when touching ammo box
+                //give more fuel when touching fuel box
                 tmrFuel.Enabled = true;
                 FuelTank.Value = 100;
             }
@@ -543,16 +542,11 @@ namespace Desert_Mayhem
             Enemy1.Add(new Enemy1());
             //draw new enemy with new speed
             Espeed = 2;
-            // Enemy1.Add(new Enemy1());
         }
 
         private void tmrEnemy_Tick(object sender, EventArgs e)
         {
 
-            if (Lives == 0)
-            {
-                death = true;
-            }
             //update enemy movement
             foreach (Enemy1 Enemy1 in Enemy1)
             {
@@ -620,6 +614,7 @@ namespace Desert_Mayhem
 
         public FrmGame()
         {
+            //sets up game before start
             InitializeComponent();
             //stops the panel and everything on it from buffering constantly
             FuelTank.Value = 100;
@@ -629,6 +624,7 @@ namespace Desert_Mayhem
 
         private void PnlGame_Paint(object sender, PaintEventArgs e)
         {
+            //draws and redraws images depending on message being sent
             g = e.Graphics;
             
             g.DrawImage(FuelImage, FuelRec);
@@ -637,19 +633,15 @@ namespace Desert_Mayhem
                 AllyCar.DrawAllyCar(g);
             }
 
-          
-            
             if (death == true)
             {
                 AllyCar.DrawExplosion(g);
             }
-   
 
                       foreach (Enemy1 Enemy in Enemy1)
-            {
-                   
-          Enemy.DrawEnemy1(g);
 
+            {    
+          Enemy.DrawEnemy1(g);
             }
             foreach (Missile m in missiles)
             {

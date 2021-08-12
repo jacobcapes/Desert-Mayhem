@@ -13,8 +13,8 @@ namespace Desert_Mayhem
     {
         // declare fields to use in the class
         public int x, y, width, height;//variables for the rectangle
-        public Image Enemy1Image;//variable for the planet's image
-        public Image explosionImage;//variable for the planet's image
+        public Image Enemy1Image;//variable for the enemy's image
+        public Image explosionImage;//variable for the explosion's image
         public double xSpeed, ySpeed;
         public int rotationAngle;
         public Matrix matrix;
@@ -26,6 +26,7 @@ namespace Desert_Mayhem
         //Create a constructor (initialises the values of the fields)
         public Enemy1()
         {
+            //randomly spawns enemy on either the left oir right side of the map
             int position;
             position = rand.Next(0, 2);
             if (position < 1)
@@ -50,17 +51,15 @@ namespace Desert_Mayhem
         }
         public void DrawEnemy1(Graphics g)
         {
-            //find the centre point of spaceRec
+            //find the centre point of enemyRec
             centre = new Point(Enemy1Rec.X + width / 2, Enemy1Rec.Y + width / 2);
             //instantiate a Matrix object called matrix
             matrix = new Matrix();
-            //rotate the matrix (spaceRec) about its centre
-
+            //rotate the matrix (enemyRec) about its centre
             matrix.RotateAt(rotationAngle, centre);
             //Set the current draw location to the rotated matrix point
             g.Transform = matrix;
             //draw the enemy
-
             g.DrawImage(Enemy1Image, Enemy1Rec);
         }
   
@@ -74,7 +73,7 @@ namespace Desert_Mayhem
         }
         public void MoveEnemy1()
         {
-            //move the enemy toward the blue plane
+            //move the enemy toward the AllyCar
             x += (int)xSpeed;
             y -= (int)ySpeed;
             Enemy1Rec.Location = new Point(x, y);//enemys new location
