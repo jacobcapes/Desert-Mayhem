@@ -29,10 +29,8 @@ namespace Desert_Mayhem
         int Level = 0;
         Random rand = new Random();
         bool death;
-        int Lives = 2;
-        Rectangle FuelRec = new Rectangle(0, 0, 20, 20);
+        Rectangle FuelRec = new Rectangle(15, 20, 20, 20);
         Image FuelImage = Properties.Resources.fueltank;
-
         string playerName;
         int startx, starty;
         private void progressBar1_Click(object sender, EventArgs e)
@@ -62,8 +60,29 @@ namespace Desert_Mayhem
                 }
 
             }
-            //increasing fuel bar
+            if (turnRight)
+            {
+                if (AllyCar.speed < 2)
+                    {
+                    if (FuelTank.Value != FuelTank.Minimum + 1 && FuelTank.Value != FuelTank.Minimum - 1)
+                    {
+                        FuelTank.Value -= 1;
+                    }
+                }
 
+            }
+            if (turnLeft)
+            {
+                if (AllyCar.speed < 2)
+                {
+                    if (FuelTank.Value != FuelTank.Minimum + 1 && FuelTank.Value != FuelTank.Minimum - 1)
+                    {
+                        FuelTank.Value -= 1;
+                    }
+                }
+
+            }
+            //increasing fuel bar
         }
 
         private void tmrFuel_Tick(object sender, EventArgs e)
@@ -92,7 +111,8 @@ namespace Desert_Mayhem
 
             if (Regex.IsMatch(playerName, @"^[a-zA-Z]+$"))//checks playerName for letters
             {
-          
+                pictureBox2.Visible = false;
+                lblPause.Visible = false;
                 pictureBox1.Visible = true;
                 death = false;
                 //if playerName valid (only letters) 
@@ -117,7 +137,7 @@ namespace Desert_Mayhem
                 AllyCar.ySpeed = 0;
                 AllyCar.x = startx;
                 AllyCar.y = starty;
-                AllyCar.rotationAngle = 0;
+                AllyCar.rotationAngle = 145;
             }
             else
             {
@@ -131,6 +151,7 @@ namespace Desert_Mayhem
 
         private void menuPause_Click(object sender, EventArgs e)
         {
+            lblPause.Visible = true;
             pictureBox1.Visible = false;
             pictureBox2.Visible = true;
             //stop all timers and show death
@@ -220,6 +241,8 @@ namespace Desert_Mayhem
 
             if (Regex.IsMatch(playerName, @"^[a-zA-Z]+$"))//checks playerName for letters
             {
+                pictureBox2.Visible = false;
+                lblPause.Visible = false;
                 pictureBox1.Visible = true;
                 death = false;
                 //if playerName valid (only letters) 
@@ -244,7 +267,7 @@ namespace Desert_Mayhem
                 AllyCar.ySpeed = 0;
                 AllyCar.x = startx;
                 AllyCar.y = starty;
-                AllyCar.rotationAngle = 0;
+                AllyCar.rotationAngle = 145;
             
 
             }
@@ -526,7 +549,6 @@ namespace Desert_Mayhem
             }
             //update the rotation angle and movment of AllyCar
             AllyCar.Rotatecar(AllyCar.rotationAngle, (int)AllyCar.speed);
-            lblSpeed.Text = AllyCar.speed.ToString();
             AllyCar.MoveAllyCar();
             PnlGame.Invalidate();
             if (AllyCar.AllyCarRec.IntersectsWith(FuelRec))

@@ -36,7 +36,6 @@ namespace Desert_Mayhem
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GameOver = new System.Windows.Forms.PictureBox();
-            this.lblSpeed = new System.Windows.Forms.Label();
             this.tmrAllyCar = new System.Windows.Forms.Timer(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.DrawEnemy1tmr = new System.Windows.Forms.Timer(this.components);
@@ -132,16 +131,6 @@ namespace Desert_Mayhem
             this.GameOver.TabStop = false;
             this.GameOver.Visible = false;
             this.GameOver.Click += new System.EventHandler(this.GameOver_Click);
-            // 
-            // lblSpeed
-            // 
-            this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(1104, 437);
-            this.lblSpeed.Name = "lblSpeed";
-            this.lblSpeed.Size = new System.Drawing.Size(13, 13);
-            this.lblSpeed.TabIndex = 4;
-            this.lblSpeed.Text = "0";
-            this.lblSpeed.Click += new System.EventHandler(this.lblSpeed_Click);
             // 
             // tmrAllyCar
             // 
@@ -375,7 +364,6 @@ namespace Desert_Mayhem
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuHelp);
             this.Controls.Add(this.menuStart2);
-            this.Controls.Add(this.lblSpeed);
             this.Controls.Add(this.lblLevel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Fuel);
@@ -418,7 +406,6 @@ namespace Desert_Mayhem
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.ProgressBar FuelTank;
         private System.Windows.Forms.Timer Fueltmr;
-        private System.Windows.Forms.Label lblSpeed;
         private System.Windows.Forms.Timer tmrFuel;
         private System.Windows.Forms.PictureBox GameOver;
         private System.Windows.Forms.MenuStrip menuStrip1;

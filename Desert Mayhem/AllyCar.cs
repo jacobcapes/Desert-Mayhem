@@ -23,12 +23,12 @@ namespace Desert_Mayhem
 
         public AllyCar()
         {
-            x = 105;
-            y = 100;
+            x = 10;
+            y = 5;
             width = 40;
             height = 50;
             speed = 0;
-            rotationAngle = 360;
+            rotationAngle = 145;
             //AllyCar contains the Car1.png image
             explosionImage = Properties.Resources.explosion;
             AllyCarImage = Properties.Resources.car1;
@@ -42,7 +42,7 @@ namespace Desert_Mayhem
             centre = new Point(AllyCarRec.X + width / 2, AllyCarRec.Y + height / 2);
             //instantiate a Matrix object called matrix
             matrix = new Matrix();
-            //rotate the matrix (AlllyCarRec) about its centre
+            //rotate the matrix (AllyCarRec) about its centre
             matrix.RotateAt(rotationAngle, centre);
             //Set the current draw location to the rotated matrix point
             g.Transform = matrix;
